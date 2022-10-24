@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+service GRPCExample {
+    rpc HelloWorld (RequestMsg) returns (ReplyMsg) {}
+}
+
+message RequestMsg {
+    optional string field1 = 1;
+    int32 field2 = 2;
+    double field3 = 3;
+    repeated string field4 = 4;
+}
+
+message ReplyMsg {
+    optional string helloworld = 1;
+}
