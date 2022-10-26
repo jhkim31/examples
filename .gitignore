@@ -7,7 +7,7 @@
 .AppleDouble
 .LSOverride
 **/.idea
-
+**/*.test
 # Icon must end with two \r
 Icon
 
