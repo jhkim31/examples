@@ -9,7 +9,9 @@
 **/.idea
 **/*.test
 **/.vscode
+**/package-lock.json
 # Icon must end with two \r
+
 Icon
 
 

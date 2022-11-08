@@ -9,18 +9,17 @@ jsonStr = json.dumps(a)
 print(type(jsonStr), jsonStr)
 
 """
-2. json(dict) => 파일(문자열)
+2. 문자열 => json(dict)
+"""
+jsonData = json.loads(jsonStr)
+print(type(jsonData), jsonData)
+
+"""
+3. json(dict) => 파일(문자열)
 실행 경로에 파일 생성
 """
 with open('./test.test', 'w') as fp:
     json.dump(a, fp)
-
-
-"""
-3. 문자열 => json(dict)
-"""
-jsonData = json.loads(jsonStr)
-print(type(jsonData), jsonData)
 
 """
 4. 파일(문자열) => json(dict)

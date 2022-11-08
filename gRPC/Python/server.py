@@ -8,7 +8,7 @@ class Hello(hello_pb2_grpc.GRPCExampleServicer):
     def HelloWorld(self, request, context):
         print(request.field1)
         print(request.field2)
-        return hello_pb2.ReplyMsg(helloworld="hello world!")
+        return hello_pb2.ReplyMsg(helloworld='hello world!')
 
 def serve():
     server = grpc.server(ThreadPoolExecutor(5))

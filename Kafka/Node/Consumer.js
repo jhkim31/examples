@@ -11,24 +11,6 @@ var consumer = new Consumer(
     }
 );
 
-var express = require('express');
-
-var app = express();
-
-app.get('/test', function(req, res) {
-  console.log(req);
-
-  res.send("hello world!")
-
-});
-
-
-
-
-
-
 consumer.on('message', function (message) {
   console.log(message);
 });
-
-app.listen(3000);
