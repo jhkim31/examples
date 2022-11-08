@@ -1,36 +1,36 @@
 import paramiko
-import tornado.websocket
-import tornado.web
-import tornado.ioloop
-import time
+from paramiko import Channel
+import asyncio
+import websockets
+from functools import partial
+import threading
 
-class SendWebSocket(tornado.websocket.WebSocketHandler):
-    async def open(self):
-        self.msgQue = []
-        self.client = paramiko.SSHClient()
-        self.client.load_system_host_keys()
-        self.client.connect("hostname", username="username", password="password")
-        self.ssh = self.client.invoke_shell(term="xterm-256color")
-        print("SSH Session Open")
-
-        time.sleep(1)
-        self.write_message(self.ssh.recv(10000))
-
-    def on_close(self):
-        print("SSH Session Closed")
-
-    def check_origin(self, origin):
-        return True
-
-    def on_message(self, message):
-        self.ssh.send(message)
-        time.sleep(0.1)
-        if self.ssh.recv_ready():
-            self.write_message(self.ssh.recv(10000))
+def recvThread(ws, ssh):
+    print(threading.currentThread())
+    asyncio.set_event_loop(asyncio.new_event_loop())
+    async def recv_msg(ws, ssh:Channel):
+        while ssh.closed == False:
+            msg = ssh.recv(1000)
+            await ws.send(msg.decode())
+        asyncio.get_event_loop().stop()
+    asyncio.run(recv_msg(ws, ssh))
 
 
-app = tornado.web.Application([(r"/ssh", SendWebSocket)])
+async def accept(websocket):
+    client = paramiko.SSHClient()
+    client.load_system_host_keys()
+    client.connect("hostname", username="username", password="password")
+    ssh = client.invoke_shell(term="xterm-256color")
+    asyncio.get_running_loop().run_in_executor(None, partial(recvThread, ws=websocket, ssh=ssh))
 
-if __name__ == "__main__":
-    app.listen(8888)
-    tornado.ioloop.IOLoop.current().start()
+    while True:
+        try:
+            msg = await websocket.recv()
+            ssh.send(msg)
+        except Exception as e:
+            break
+
+start_server = websockets.serve(accept, "localhost", 8888)
+
+asyncio.get_event_loop().run_until_complete(start_server)
+asyncio.get_event_loop().run_forever()

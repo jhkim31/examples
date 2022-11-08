@@ -1,6 +1,5 @@
 # 웹과 관련된 컴포넌트들
 
-
 ## 1. [웹소캣](/Web/WebSocket/)
 
 전이중 통신을 지원하는 웹소켓에 대한 예제
@@ -10,29 +9,34 @@ SocketIO는 웹소켓과, 웹소켓을 지원하지 않는다면 poll방식으�
 이 예제에서는 웹소켓을 그대로 사용하는 방법과, socketIO를 통해 사용하는 방법을 알아봄.
 
 ### 1.1 [웹소캣](/Web/WebSocket/WebSocket/)
+
 #### 1.1.1 [파이썬](/Web/WebSocket/WebSocket/Python/)
+
 웹소켓 서버는 비동기로 동작함. 파이썬의 경우 asyncio나 tornado, celery등을 사용한다.
 이 예시들은 웹소켓을 사용한 에코서버의 예시를 다룬다.
 
 #### [서버](/Web/WebSocket/WebSocket/Python/server/) 실행
+
 ```bash
 python3 server.py
 ```
 
 #### [클라](/Web/WebSocket/WebSocket/Python/client/) 실행
+
 ```bash
 npm start
 ```
 
-
 #### 1.1.2 [노드](/Web/WebSocket/WebSocket/Node/)
 
 #### [서버](/Web/WebSocket/WebSocket/Node/server/) 실행
+
 ```bash
 node server.js
 ```
 
 #### [클라](/Web/WebSocket/WebSocket/Node/client/) 실행
+
 ```bash
 npm start
 ```
@@ -43,54 +47,86 @@ SocketIO는 웹소켓을 캡슐화하여 사용하기 편하게 만든 라이브
 SocketIO는 emit()을 통해 특정 이벤트를 송수신 하거나, send를 통해 메시지를 송수신할 수 있음
 
 #### 송신
+
 ```javascript
-sock.emit('event name', 'event content')        // 이벤트 전송
-sock.send('message')                            // 메시지 전송 (메시지도 결국 message라는 이벤트)
+sock.emit("event name", "event content"); // 이벤트 전송
+sock.send("message"); // 메시지 전송 (메시지도 결국 message라는 이벤트)
 ```
 
 #### 수신
+
 ```javascript
 sock.on('event name', ...)                      // 이벤트 수신
 sock.on('message')                              // 메시지 수신 (메시지도 결국 message라는 이벤트)
 ```
 
-
 #### 1.2.1 [노드](/Web/WebSocket/SocketIO/Node/)
 
 #### [서버](/Web/WebSocket/SocketIO/Node/server/) 실행
+
 ```bash
 node server.js
 ```
 
 #### [클라](/Web/WebSocket/SocketIO/Node/client/) 실행
+
 ```bash
 npm start
 ```
 
-
 #### 1.2.2 [파이썬](/Web/WebSocket/SocketIO/Python/)
 
 #### [서버](/Web/WebSocket/SocketIO/Python/server/) 실행
+
 ```bash
 python3 server.py
 ```
 
 #### [클라](/Web/WebSocket/SocketIO/Python/client/) 실행
+
 ```bash
 npm start
 ```
 
-
 ### 1.3 [채팅](/Web/WebSocket/Chat)
+
 여러명의 사람이 동시에 참여 가능한 채팅방.
 ![image](/Image/Web/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202022-11-08%2023.11.30.png)
 
 #### [서버](/Web/WebSocket/Chat/server/) 실행
+
 ```bash
 node server.js
 ```
 
 #### [클라](/Web/WebSocket/Chat/client/) 실행
+
+```bash
+npm start
+```
+
+### 1.4 [웹 SSh 콘솔](/Web/WebSSH)
+
+웹상에서 ssh 콘솔을 사용하기 위한 예제.
+![image](/Image/Web/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202022-11-08%2023.43.06.png)
+
+위 그림과 같이 클라이언트는 웹서버와, 웹서버는 SSH서버와 통신을 하게 되어있다.
+또한 실시간 전이중 통신을 위해 웹서버에서는 SSH서버와 통신하기 위한 쓰레드와, 클라이언트와 통신하기 위한 쓰레드를 별도로 분리하여 동작시킨다.
+
+```python
+async def recv_msg(ws, ssh:Channel):
+    while ssh.closed == False:
+        msg = ssh.recv(1000)
+        await ws.send(msg.decode())
+```
+별도의 쓰레드에서 동작하는 코루틴, 이 코루틴의 목적은 ssh서버로부터 변화된 데이터를 받아(recv) 웹소켓으로 데이터를 넘겨주는 역할을 함.
+
+#### [서버](/Web/WebSSH/server/) 실행
+```bash
+python3 server.py
+```
+
+#### [클라](/Web/WebSSH/client/) 실행
 ```bash
 npm start
 ```

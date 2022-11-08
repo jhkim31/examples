@@ -4,7 +4,7 @@ var client = new kafka.KafkaClient();
 var consumer = new Consumer(
     client,
     [
-        {topic: "jhkim", partition: 0},
+        {topic: "jh2", partition: 0},
     ],
     {
         autoCommit: false,

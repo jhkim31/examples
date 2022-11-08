@@ -17,6 +17,8 @@ function App() {
         });
 
         ws.onmessage = function (evt) {
+            debugger;
+            console.log(evt.data);
             terminal.write(evt.data);
         };
     }, []);
