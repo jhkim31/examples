@@ -2,18 +2,18 @@
 
 ## 1. [웹소캣](/Web/WebSocket/)
 
-전이중 통신을 지원하는 웹소켓에 대한 예제
-웹소켓과, 이를 쓰기 편하게 만든 라이브러리인 SocketIO에 대해 알아봄.
-웹소켓은 브라우저에서 자체적으로 지원하는 프로토콜임. 하지만 구형 브라우저들은 웹소켓을 지원하지 않을 수 있다.
-SocketIO는 웹소켓과, 웹소켓을 지원하지 않는다면 poll방식으로 웹소켓과 비슷한 경험을 할 수 있게 해주는 라이브러리임.
-이 예제에서는 웹소켓을 그대로 사용하는 방법과, socketIO를 통해 사용하는 방법을 알아봄.
+전이중 통신을 지원하는 웹소켓에 대한 예제  
+웹소켓과, 이를 쓰기 편하게 만든 라이브러리인 SocketIO에 대해 알아봄.  
+웹소켓은 브라우저에서 자체적으로 지원하는 프로토콜임. 하지만 구형 브라우저들은 웹소켓을 지원하지 않을 수 있다.  
+SocketIO는 웹소켓과, 웹소켓을 지원하지 않는다면 poll방식으로 웹소켓과 비슷한 경험을 할 수 있게 해주는 라이브러리임.  
+이 예제에서는 웹소켓을 그대로 사용하는 방법과, socketIO를 통해 사용하는 방법을 알아봄.  
 
 ### 1.1 [웹소캣](/Web/WebSocket/WebSocket/)
 
 #### 1.1.1 [파이썬](/Web/WebSocket/WebSocket/Python/)
 
-웹소켓 서버는 비동기로 동작함. 파이썬의 경우 asyncio나 tornado, celery등을 사용한다.
-이 예시들은 웹소켓을 사용한 에코서버의 예시를 다룬다.
+웹소켓 서버는 비동기로 동작함. 파이썬의 경우 asyncio나 tornado, celery등을 사용한다.  
+이 예시들은 웹소켓을 사용한 에코서버의 예시를 다룬다.  
 
 #### [서버](/Web/WebSocket/WebSocket/Python/server/) 실행
 
@@ -43,8 +43,8 @@ npm start
 
 ### 1.2 [SocketIO](/WEb/WebSocket/SocketIO/)
 
-SocketIO는 웹소켓을 캡슐화하여 사용하기 편하게 만든 라이브러리로써, 범용성이 높음.
-SocketIO는 emit()을 통해 특정 이벤트를 송수신 하거나, send를 통해 메시지를 송수신할 수 있음
+SocketIO는 웹소켓을 캡슐화하여 사용하기 편하게 만든 라이브러리로써, 범용성이 높음.  
+SocketIO는 emit()을 통해 특정 이벤트를 송수신 하거나, send를 통해 메시지를 송수신할 수 있음  
 
 #### 송신
 
@@ -90,7 +90,7 @@ npm start
 
 ### 1.3 [채팅](/Web/WebSocket/Chat)
 
-여러명의 사람이 동시에 참여 가능한 채팅방.
+여러명의 사람이 동시에 참여 가능한 채팅방.  
 ![image](/Image/Web/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202022-11-08%2023.11.30.png)
 
 #### [서버](/Web/WebSocket/Chat/server/) 실행
@@ -107,7 +107,7 @@ npm start
 
 ### 1.4 [웹 SSh 콘솔](/Web/WebSSH)
 
-웹상에서 ssh 콘솔을 사용하기 위한 예제.
+웹상에서 ssh 콘솔을 사용하기 위한 예제.  
 ![image](/Image/Web/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202022-11-08%2023.43.06.png)
 
 위 그림과 같이 클라이언트는 웹서버와, 웹서버는 SSH서버와 통신을 하게 되어있다.
@@ -119,8 +119,8 @@ async def recv_msg(ws, ssh:Channel):
         msg = ssh.recv(1000)
         await ws.send(msg.decode())
 ```
-별도의 쓰레드에서 동작하는 코루틴, 이 코루틴의 목적은 ssh서버로부터 변화된 데이터를 받아(recv) 웹소켓으로 데이터를 넘겨주는 역할을 함.
-
+별도의 쓰레드에서 동작하는 코루틴, 이 코루틴의 목적은 ssh서버로부터 변화된 데이터를 받아(recv) 웹소켓으로 데이터를 넘겨주는 역할을 함.  
+ 
 #### [서버](/Web/WebSSH/server/) 실행
 ```bash
 python3 server.py
@@ -130,3 +130,7 @@ python3 server.py
 ```bash
 npm start
 ```
+
+sample  
+![image](/Image/Web/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202022-11-09%2000.59.01.png)
+![image](/Image/Web/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202022-11-09%2000.59.04.png)
