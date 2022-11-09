@@ -134,3 +134,19 @@ npm start
 sample  
 ![image](/Image/Web/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202022-11-09%2000.59.01.png)
 ![image](/Image/Web/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202022-11-09%2000.59.04.png)
+
+
+### 1.5 [웹 동시 편집](/Web/WebSocket/MultiEdit/)
+웹상에서 동일한 에디터로 편집하기 위함.  
+![image](/Image/Web/%ED%99%94%EB%A9%B4%20%EA%B8%B0%EB%A1%9D%202022-11-09%2013.16.58.gif)
+
+웹소켓을 통해 자신을 제외한 서버에 연결된 모든 웹소켓에 내용을 전달함.
+#### [서버](/Web/WebSocket/MultiEdit/server/) 실행
+```bash
+node server.py
+```
+
+#### [서버](/Web/WebSocket/MultiEdit/client/) 실행
+```bash
+npm start
+```
