@@ -21,9 +21,10 @@ const webSocketServer = new WebSocket.Server({
 webSocketServer.on("connection", (ws, request) => {
     ws.id = uuidv4();
     console.log(ws.id);
+    console.log(request)
 
     ws.on("message", (msg) => {
         console.log(`${ws.id} : ${msg}`);
-        ws.send(msg.toString());
+        ws.send(`${ws.id} : ${msg.toString()}`);
     });
 });
