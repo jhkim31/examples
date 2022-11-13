@@ -7,8 +7,8 @@ const {v4: uuidv4} = require("uuid");
 var app = express();
 
 const {createClient} = require("redis");
-let redisClient = createClient({legacyMode: true});
-redisClient.connect().catch(console.error);
+let redisClient = createClient({url: 'redis://localhost:6379', legacyMode: true});
+redisClient.connect();
 
 // session 설정
 app.use(
@@ -19,19 +19,22 @@ app.use(
         saveUninitialized: true,
     })
 );
-app.use(express.static('/Users/jhkim/_git/Template/WebFramework/Express/Session/build'))
+app.use(express.static("/Users/jhkim/_git/Template/WebFramework/Express/Session/build"));
 
-app.get('/', (req, res) => {
-  var session = req.session;
-  if (session && session.count) {
-      session.count++;
-  } else {
-      session.count = 1;
-  }
+app.get("/", (req, res) => {
+    var session = req.session;
+    if (session?.count) {
+        session.count++;
+    } else {
+        session.count = 1;
+    }
+    if (session?.wsID == undefined){
+        session.wsID = uuidv4();
+    }
 
-  console.log(session.id)
-  res.sendFile('/Users/jhkim/_git/Template/WebFramework/Express/Session/index.html')
-})
+    console.log(session.id);
+    res.sendFile("/Users/jhkim/_git/Template/WebFramework/Express/Session/index.html");
+});
 // routing 설정
 
 app.get("/session-destroy", function (req, res) {
@@ -48,13 +51,18 @@ const webSocketServer = new WebSocket.Server({
     server: HTTPserver,
 });
 
-webSocketServer.on("connection", (ws, request, b) => {
-    ws.id = uuidv4();
-    console.log(ws.id);        
-    console.log(request.session);
+webSocketServer.on("connection", async (ws, request, b) => {
+    if (ws.id) {
+    } else {
+        for (const header of request.rawHeaders) {
+            if (header.includes("connect.sid")) {
+                const session = header.replace("connect.sid=s%3A", "").split(".")[0];
+                ws.id = JSON.parse(await redisClient.v4.get(`sess:${session}`)).wsID;
+            }
+        }
+    }
 
     ws.on("message", (msg) => {
-        
         console.log(`${ws.id} : ${msg}`);
         ws.send(`${ws.id} : ${msg.toString()}`);
     });

@@ -11,26 +11,21 @@ const options = {
     enums: String,
     defaults: true,
     oneofs: true,
-  };
+};
 
-  const pkgDefs = protoLoader.loadSync(PROTO_FILE, options);
+const pkgDefs = protoLoader.loadSync(PROTO_FILE, options);
 
-  //load Definition into gRPC
-  const UserService = grpc.loadPackageDefinition(pkgDefs).UserService;
+//load Definition into gRPC
+const UserService = grpc.loadPackageDefinition(pkgDefs).UserService;
 
-  //create the Client
-  const client = new UserService(
-    "localhost:5000",
-    grpc.credentials.createInsecure()
-  );
+//create the Client
+const client = new UserService("localhost:5000", grpc.credentials.createInsecure());
 
-  //make a call to GetUser
-  client.GetUser({}, (error, user) => {
+//make a call to GetUser
+client.GetUser({}, (error, user) => {
     if (error) {
-      console.log(error);
+        console.log(error);
     } else {
-      console.log(user);
+        console.log(user);
     }
-  });
-
-
+});

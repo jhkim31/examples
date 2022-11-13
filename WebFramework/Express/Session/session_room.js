@@ -27,6 +27,7 @@ app.get("/create-room", function (req, res) {
     res.redirect(`/room/${room_id}`);
 });
 
+
 app.get("/room/*", (req, res) => {
     const n = req.path.split("/").pop();
     if (n == req.session.room) {
