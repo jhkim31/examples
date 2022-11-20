@@ -1,12 +1,13 @@
 var express = require("express");
 var session = require("express-session");
+const {createClient} = require("redis");
 var RedisStore = require("connect-redis")(session);
 const WebSocket = require("ws");
 const {v4: uuidv4} = require("uuid");
 
 var app = express();
 
-const {createClient} = require("redis");
+
 let redisClient = createClient({url: 'redis://localhost:6379', legacyMode: true});
 redisClient.connect();
 
@@ -42,7 +43,7 @@ app.get("/session-destroy", function (req, res) {
     res.send("Session Destroyed!");
 });
 
-var HTTPserver = app.listen(8888, function () {
+var HTTPserver = app.listen(1234, function () {
     console.log("Express server listening on port " + 8888);
 });
 

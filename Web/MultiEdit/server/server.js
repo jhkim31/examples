@@ -26,7 +26,7 @@ webSocketServer.on("connection", (ws, request) => {
         console.log(msg.toString())
         for (const id of Object.keys(users)){
             if (id  != ws.id){
-                users[id].send(`${msg.toString()}`)
+                users[id].send(`${msg.toString( )}`)
             }
         }
     });

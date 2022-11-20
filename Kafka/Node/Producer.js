@@ -1,16 +1,36 @@
-var kafka = require('kafka-node');
-var Producer = kafka.Producer;
-var client = new kafka.KafkaClient()
-var producer = new Producer(client)
+// var kafka = require("kafka-node");
 
-producer.on('ready', function () {
-    data = { topic: 'jh2', messages: 'hi', partition: 0 };
-    producer.send([data], (err, res) => {
-        console.log(res);
-        producer.close();
-    });
+// var client = new kafka.KafkaClient({kafkaHost: "localhost:9092", requestTimeout: 5000});
+// var producer = new kafka.Producer(client);
+
+// producer.on("ready", function () {
+//     console.log("ready!");
+//     data = {topic: "kafka-test", messages: "hi", partition: parseInt(Math.random() * 3)};
+//     console.log(data);
+//     producer.send([data], (err, res) => {
+//         console.log("err : ", err);
+//         console.log("res : ", res);
+//         producer.close();
+//     });
+// });
+
+
+const {Kafka, Partitioners} = require("kafkajs");
+
+const kafka = new Kafka({
+    brokers: ["localhost:9092"],
 });
 
+const producer = kafka.producer({ createPartitioner: Partitioners.LegacyPartitioner });
 
+async function run() {
+    await producer.connect();
+    await producer.send({
+        topic: "ChangeText",
+        messages: [{value: "Hello KafkaJS user!"}],        
+    });
 
-// producer.on('error', function (err) {})
+    producer.disconnect();
+}
+
+run();

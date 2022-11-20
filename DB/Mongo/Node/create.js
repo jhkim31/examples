@@ -19,7 +19,7 @@ const RoomSchema = new mongoose.Schema({
 const Room = mongoose.model("Room", RoomSchema);
 
 const room = new Room({
-    id: "1234",
+    id: "12345",
     sessions: ["95a7d7ec4a1236c123"],
     storages: ["36dbf3d8812353dasdfasdf"],
 });

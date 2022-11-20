@@ -24,6 +24,7 @@ async function update() {
 
     const res2 = await Room.updateMany({id: "12345"}, {sessions : ['a!']});
     console.log(res2);
+    //$addToSet: { sessions: "add array!" }
 
     mongoose.disconnect();
 }
