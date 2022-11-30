@@ -16,8 +16,17 @@ cd {kafka 설치 디렉토리}/bin
 https://www.youtube.com/watch?v=FpNhPh_VEzM&list=PLJlUnZ1kDbt6rN-pf_4jxPSWuP4BeK4pk&index=1
 
 # 3. kafka CLI
-카프카 설치 디렉토리의 /bin 디렉토리에서 실시  
+카프카 설치 디렉토리의 /bin 디렉토리에서 실시
 (이 디렉토리에 스크립트들이 있음)
+
+## Zookeeper, Kafka 실행
+```bash
+cd ${zookeeper설치 디렉토리}/bin
+./zkServer.sh start
+
+cd ${kafka설치 디렉토리}/bin
+./kafka-server-start.sh ${kafka설치 디렉토리}/config/server.properties
+```
 
 ## 3.1 토픽
 ### 3.1.1 토픽 생성
@@ -30,8 +39,8 @@ https://www.youtube.com/watch?v=FpNhPh_VEzM&list=PLJlUnZ1kDbt6rN-pf_4jxPSWuP4BeK
 
 ### 3.1.2 토픽 조회
 ```bash
-./kafka-topics --list --bootstrap-server localhost:9092  
-./kafka-topics.sh --list --bootstrap-server localhost:9092  
+./kafka-topics --list --bootstrap-server localhost:9092
+./kafka-topics.sh --list --bootstrap-server localhost:9092
 ```
 
 result
@@ -44,12 +53,12 @@ topic3
 
 ### 3.1.3 토픽 상세
 ```bash
-./kafka-topics --bootstrap-server localhost:9092 --describe --topic {topic} 
-./kafka-topics.sh --bootstrap-server localhost:9092 --describe --topic {topic} 
+./kafka-topics --bootstrap-server localhost:9092 --describe --topic {topic}
+./kafka-topics.sh --bootstrap-server localhost:9092 --describe --topic {topic}
 ```
 result
 ```bash
-Topic: ChangeText       TopicId: D_O6gjTHR_GzrXB9Y_5ZbA PartitionCount: 1       ReplicationFactor: 1    Configs: 
+Topic: ChangeText       TopicId: D_O6gjTHR_GzrXB9Y_5ZbA PartitionCount: 1       ReplicationFactor: 1    Configs:
         Topic: ChangeText       Partition: 0    Leader: 0       Replicas: 0     Isr: 0
 ```
 
@@ -78,8 +87,8 @@ group3
 ### 3.2.2 컨슈머 상세
 
 ```bash
-./kafka-consumer-groups --bootstrap-server localhost:9092 --describe --group {consumer group} 
-./kafka-consumer-groups.sh --bootstrap-server localhost:9092 --describe --group {consumer group} 
+./kafka-consumer-groups --bootstrap-server localhost:9092 --describe --group {consumer group}
+./kafka-consumer-groups.sh --bootstrap-server localhost:9092 --describe --group {consumer group}
 ```
 
 result
@@ -92,7 +101,7 @@ keti-group      kafka-test      2          80              80              0    
 ```
 
 ### 3.2.3 토픽 Consume
-* --from-beginning 
+* --from-beginning
     * 해당 토픽을 읽은적 없는 놈이 해당 옵션을 넣으면, offset0부터 읽는다.
     * 해당 토픽을 읽은적 없는 놈이 해당 옵션을 빼면, 제일 최근 offset부터 읽는다.
     * 해당 토픽을 읽은적 있는 놈은 자기가 커밋한 offset부터 읽음.
