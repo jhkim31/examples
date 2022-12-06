@@ -6,13 +6,12 @@ const protoLoader = require("@grpc/proto-loader");
 const PROTO_FILE = "./todo.proto";
 //options needed for loading Proto file
 const options = {
-  keepCase: true,
-  longs: String,
-  enums: String,
-  defaults: true,
-  oneofs: true,
+    keepCase: true,
+    longs: String,
+    enums: String,
+    defaults: true,
+    oneofs: true,
 };
-
 
 const pkgDefs = protoLoader.loadSync(PROTO_FILE, options);
 
@@ -24,26 +23,25 @@ const server = new grpc.Server();
 
 //implement UserService
 server.addService(userProto.UserService.service, {
-  //implment GetUser
-  GetUser: (input, callback) => {
-    try {
-      callback(null, { name: "Jake", age: 25 });
-    } catch (error) {
-      callback(error, null);
-    }
-  },
+    //implment GetUser
+    GetUser: (input, callback) => {
+        try {
+            callback(null, {name: "Jake", age: 25});
+        } catch (error) {
+            callback(error, null);
+        }
+    },
 });
-
 
 //start the Server
 server.bindAsync(
-  //port to serve on
-  "127.0.0.1:5000",
-  //authentication settings
-  grpc.ServerCredentials.createInsecure(),
-  //server start callback
-  (error, port) => {
-    console.log(`listening on port ${port}`);
-    server.start();
-  }
+    //port to serve on
+    "127.0.0.1:5000",
+    //authentication settings
+    grpc.ServerCredentials.createInsecure(),
+    //server start callback
+    (error, port) => {
+        console.log(`listening on port ${port}`);
+        server.start();
+    }
 );
