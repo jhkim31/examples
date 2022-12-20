@@ -1,9 +1,8 @@
 const mongoose = require("mongoose");
 
+const dbUrl = "mongodb://test:test@localhost:27017/test";
 
-const dbUrl = "mongodb://jhkim:asdf1346@localhost:27017";
-
-const conn =  mongoose.connect(dbUrl, {dbName: "test"})
+mongoose.connect(dbUrl)
 .then(e => {
     console.log('connect!')
 })

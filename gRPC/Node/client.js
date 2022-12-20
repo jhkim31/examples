@@ -22,16 +22,17 @@ const UserService = grpc.loadPackageDefinition(pkgDefs).UserService;
 const client = new UserService("localhost:5000", grpc.credentials.createInsecure());
 
 //make a call to GetUser
-console.log('before');
-new Promise () ={
-
-}
-client.GetUser({}, (error, user) => {
-    if (error) {
-        console.log(error);
-    } else {
-        console.log(user);
-    }
-});
-
-console.log('after');
+const p = new Promise((resolve, reject) =>
+    client.GetUser({}, (error, user) => {
+        if (error) {
+            reject(error);
+        } else {
+            resolve(user);
+        }
+    })
+);
+(async () => {
+    console.log('before');
+    await p.then(d => console.log(d)).catch(e => console.log(e));
+    console.log('after')
+})()

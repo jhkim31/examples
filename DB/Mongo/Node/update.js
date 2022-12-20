@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
 
 
-const dbUrl = "mongodb://jhkim:asdf1346@localhost:27017";
+const dbUrl = "mongodb://test:test@localhost:27017/test";
 
-const db = mongoose.connect(dbUrl, {dbName: "test"})
+mongoose.connect(dbUrl)
 .then(e => {
     console.log('connect!')
 })
@@ -22,10 +22,8 @@ async function update() {
     const res = await Room.updateOne({id: "12345"}, {sessions : ['a!']});
     console.log(res);
 
-    const res2 = await Room.updateMany({id: "12345"}, {sessions : ['a!']});
-    console.log(res2);
-    //$addToSet: { sessions: "add array!" }
-
+    const updatedRoom = await Room.findOne({id: "12345"});    
+    console.log(updatedRoom);
     mongoose.disconnect();
 }
 update();

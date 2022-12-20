@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 
 const dbUrl = "mongodb://test:test@localhost:27017/test";

@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
 
 
-const dbUrl = "mongodb://jhkim:asdf1346@localhost:27017";
+const dbUrl = "mongodb://test:test@localhost:27017/test";
 
-const db = mongoose.connect(dbUrl, {dbName: "test"})
+mongoose.connect(dbUrl)
 .then(e => {
     console.log('connect!')
 })
@@ -18,14 +18,9 @@ const RoomSchema = new mongoose.Schema({
 });
 const Room = mongoose.model("Room", RoomSchema);
 
-async function read() {
-    const res = await Room.find({id: "12345"});
-    console.log('find ======================')
+async function read() {    
+    const res = await Room.findOne({id: "12345"});    
     console.log(res);
-
-    const res2 = await Room.findOne({id: "12345"});
-    console.log('findOne ======================')
-    console.log(res2);
 
     mongoose.disconnect();
 }

@@ -1,5 +1,4 @@
-const mongoose = require("mongoose");
-
+import mongoose from "mongoose";
 
 const dbUrl = "mongodb://test:test@localhost:27017/test";
 
@@ -18,13 +17,18 @@ const RoomSchema = new mongoose.Schema({
 });
 const Room = mongoose.model("Room", RoomSchema);
 
-async function Delete() {
-    const res = await Room.deleteOne({id: "12345"});
-    console.log(res);
+const room = new Room({
+    id: "12345",
+    sessions: ["95a7d7ec4a1236c123"],
+    storages: ["36dbf3d8812353dasdfasdf"],
+});
 
-    const res2 = await Room.find({id: "12345"});    
-    console.log(res2);
 
+room.save()
+.then(d => {
+    console.log('save!')
     mongoose.disconnect();
-}
-Delete();
+})
+.catch(e => {
+    console.log('save error!')
+})
