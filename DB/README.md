@@ -19,3 +19,14 @@ MongoDB를 다루는 API 입니다.
 시간이 지나면 Document가 삭제된다.
 
 ### 1.2 [Typescript](/DB/Mongo/Typescript/)
+
+#### [Create](/DB/Mongo/Typescript/create.ts)
+
+#### [Read](/DB/Mongo/Typescript/read.ts)
+
+#### [Update](/DB/Mongo/Typescript/update.ts)
+
+#### [Delete](/DB/Mongo/Typescript/delete.ts)
+
+#### [Expire](/DB/Mongo/Typescript/expire.ts)
+시간이 지나면 Document가 삭제된다.

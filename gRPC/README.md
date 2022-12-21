@@ -38,6 +38,18 @@ message ReplyMsg {
 ## 2. [Node](/gRPC/Node/)
 노드에서 gRPC는 proto파일을 컴파일할수도 있고, loader를 통해 실시간으로 컴파일할 수 있습니다.
 
+```bash
+grpc_tools_node_protoc \
+--js_out=import_style=commonjs,binary:./proto2 \
+--grpc_out=grpc_js:./proto2 \
+--plugin=protoc-gen-grpc=./node_modules/.bin/grpc_tools_node_protoc_plugin \
+-I ./proto \
+proto/todo.proto
+
+grpc_tools_node_protoc --js_out=import_style=commonjs,binary:./proto \
+--grpc_out=grpc_js:./proto proto/todo.proto
+```
+
 ### [서버](/gRPC/Node/server.js)실행
 ```node
 node server.js
@@ -67,4 +79,9 @@ server.py
 ### [클라](/gRPC/Python/client.py) 실행
 ```bash
 client.py
+```
+
+## 4. [Typescript]
+```bash
+
 ```

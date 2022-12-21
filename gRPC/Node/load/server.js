@@ -3,7 +3,7 @@ const grpc = require("@grpc/grpc-js");
 const protoLoader = require("@grpc/proto-loader");
 
 //path to our proto file
-const PROTO_FILE = "./todo.proto";
+const PROTO_FILE = "./proto/todo.proto";
 //options needed for loading Proto file
 const options = {
     keepCase: true,
@@ -13,10 +13,10 @@ const options = {
     oneofs: true,
 };
 
-const pkgDefs = protoLoader.loadSync(PROTO_FILE, options);
+const protoDef = protoLoader.loadSync(PROTO_FILE, options);
 
 //load Definition into gRPC
-const userProto = grpc.loadPackageDefinition(pkgDefs);
+const userProto = grpc.loadPackageDefinition(protoDef).todo;
 
 //create gRPC server
 const server = new grpc.Server();

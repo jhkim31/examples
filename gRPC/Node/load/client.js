@@ -3,7 +3,7 @@ const grpc = require("@grpc/grpc-js");
 const protoLoader = require("@grpc/proto-loader");
 
 //path to our proto file
-const PROTO_FILE = "./todo.proto";
+const PROTO_FILE = "../proto/todo.proto";
 //options needed for loading Proto file
 const options = {
     keepCase: true,
@@ -16,11 +16,10 @@ const options = {
 const pkgDefs = protoLoader.loadSync(PROTO_FILE, options);
 
 //load Definition into gRPC
-const UserService = grpc.loadPackageDefinition(pkgDefs).UserService;
+const services = grpc.loadPackageDefinition(pkgDefs).todo;
 
 //create the Client
-const client = new UserService("localhost:5000", grpc.credentials.createInsecure());
-
+const client = new services.UserService("localhost:5000", grpc.credentials.createInsecure());
 //make a call to GetUser
 const p = new Promise((resolve, reject) =>
     client.GetUser({}, (error, user) => {
@@ -31,8 +30,6 @@ const p = new Promise((resolve, reject) =>
         }
     })
 );
-(async () => {
-    console.log('before');
-    await p.then(d => console.log(d)).catch(e => console.log(e));
-    console.log('after')
+(async () => {    
+    await p.then(d => console.log(d)).catch(e => console.log(e));    
 })()
